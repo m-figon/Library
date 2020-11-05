@@ -44,7 +44,12 @@ else{
                 <h6><?php echo  $book['library'] ?></h6>
                 </div>
                 <div class="col-sm">
-                <h6><?php echo  $book['available'] ?></h6>
+                <?php  if($book['available']==='1'){?>
+                <h6><?php echo  'available' ?></h6>
+                <?php }?>
+                <?php  if($book['available']==='0'){?>
+                <h6><?php echo  'not available' ?></h6>
+                <?php }?>
                 </div>
             </div>
         </div>
