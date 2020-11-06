@@ -50,7 +50,7 @@ if (isset($_GET['submit'])) {
             <label for="exampleInputPassword1">Password</label>
             <input type="password" name="password" class="form-control" id="exampleInputPassword1">
         </div>
-        <button type="submit" name="submit" class="btn bg-secondary text-light">Submit</button>
+        <button type="submit" name="submit" class="btn bg-secondary text-light">Login</button>
     </form>
 </body>
 

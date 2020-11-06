@@ -19,7 +19,7 @@
         <a class="nav-link text-light" href="/library/login.php">Login</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-light" href="#">Register</a>
+        <a class="nav-link text-light" href="/library/register.php">Register</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
