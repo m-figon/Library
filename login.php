@@ -4,7 +4,7 @@ $email = '';
 $password = '';
 
 
-$conn = mysqli_connect('localhost', 'admin', 'test1234', 'sql_users');
+$conn = mysqli_connect('localhost', 'admin', 'test1234', 'library');
 $sql = "SELECT * FROM users ORDER BY id";
 $result = mysqli_query($conn, $sql);
 $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -21,6 +21,8 @@ if (isset($_GET['submit'])) {
     }
     if ($correctData) {
         $visible=false;
+        session_start();
+        $_SESSION['email']=$user['email'];
         header("Location: http://localhost/library/");
     }else{
         $visible=true;

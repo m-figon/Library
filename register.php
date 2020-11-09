@@ -79,6 +79,7 @@ if (isset($_GET['submit'])) {
             $sql = "INSERT INTO users(name,surname,password, confirm_password, email, phone) VALUES ('$nameVal','$surnameVal','$passwordVal','$confirmPasswordVal','$emailVal','$phoneVal')";
 
             if (mysqli_query($conn, $sql)) {
+                header("Location: http://localhost/library/");
             } else {
                 echo 'query error: ' . mysqli_error($conn);
             }

@@ -47,3 +47,8 @@ h6{
 #incorrect{
     border: 2px solid red;
 }
+.col-sm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
