@@ -51,7 +51,7 @@ if ($conn) {
             <div class="row bg-light">
 
                 <div class="col-sm">
-                    <h6><?php echo  $book['name'] ?></h6>
+                    <a href="/library/details.php?id=<?php echo htmlspecialchars($book['id']) ?>"><h6><?php echo  $book['name'] ?></h6></a>
                 </div>
                 <div class="col-sm">
                     <h6><?php echo  $book['author'] ?></h6>
