@@ -1,21 +1,35 @@
 <?php
-$conn = mysqli_connect('localhost', 'admin', 'test1234', 'library');
+$conn = mysqli_connect('localhost', 'admin', 'test1234', 'library-data');
 $bookBorrowed = false;
 if (isset($_GET['submit']) && isset($_GET['id'])) {
     $bookBorrowed = true;
     $idVal = $_GET['id'];
-    $sql = "UPDATE books SET available = '0' WHERE id = $idVal";
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    $user_id = $_SESSION['user_id'];
+    $startDate = date("Y-m-d");
+    $endDate = $startDate;
+    $returnedVal = '0';
+    $sql = "UPDATE books SET availability = '0'";
     if (mysqli_query($conn, $sql)) {
-    }else{
-        echo 'error';
+    } else {
+        echo mysqli_error($conn);
+    }
+    //echo $startDate;
+    //echo $user_id;
+    $sql = "INSERT INTO borrows (user_id,book_id,start_date,end_date,returned) VALUES ('$user_id','$idVal','$startDate','$endDate','$returnedVal')";
+    if (mysqli_query($conn, $sql)) {
+    } else {
+        echo mysqli_error($conn);
     }
 }
 if (isset($_SESSION['name'])) {
     $logedAc = $_SESSION['name'];
 }
-if ($conn && isset($_GET['id'])) {
+if ($conn && isset($_GET['id']) && !isset($_GET['submit'])) {
     $id = $_GET['id'];
-    $sql = "SELECT * FROM books WHERE id = $id";
+    $sql = "SELECT * FROM books WHERE book_id = $id";
     $result = mysqli_query($conn, $sql);
     $book = mysqli_fetch_assoc($result);
     mysqli_free_result($result);
@@ -42,7 +56,7 @@ if ($conn && isset($_GET['id'])) {
                     <h2>Title:</h2>
                 </div>
                 <div class="col-sm">
-                    <h2><?php echo htmlspecialchars($book['name']) ?></h2>
+                    <h2><?php echo htmlspecialchars($book['title']) ?></h2>
                 </div>
             </div>
             <div class="row bg-light">
@@ -66,19 +80,19 @@ if ($conn && isset($_GET['id'])) {
                     <h2>Availability:</h2>
                 </div>
                 <div class="col-sm">
-                    <h2><?php echo $book['available'] === '1' ? 'Available' : "Not Available"  ?></h2>
+                    <h2><?php echo $book['availability'] === '1' ? 'Available' : "Not Available"  ?></h2>
                 </div>
             </div>
-            <?php if ($book['available'] === '1' && $logedAc === '') { ?>
+            <?php if ($book['availability'] === '1' && $logedAc === '') { ?>
                 <div class="row bg-light">
                     <h3>To borrow book from a library</h3>
                     <a id="login-link" href="/library/login.php">Sign in</a>
                 </div>
             <?php  } ?>
-            <?php if ($book['available'] === '1' && $logedAc !== '') { ?>
+            <?php if ($book['availability'] === '1' && $logedAc !== '') { ?>
                 <div class="row bg-light">
                     <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="GET">
-                        <input type="hidden" name="id" value="<?php echo $book['id'] ?>">
+                        <input type="hidden" name="id" value="<?php echo $book['book_id'] ?>">
                         <input class="nav-link" type="submit" name="submit" value="Borrow Book">
                     </form>
                 </div>

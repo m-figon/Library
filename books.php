@@ -1,5 +1,5 @@
 <?php
-$conn = mysqli_connect('localhost', 'admin', 'test1234', 'library');
+$conn = mysqli_connect('localhost', 'admin', 'test1234', 'library-data');
 
 if ($conn) {
     $sql = "SELECT * FROM books";
@@ -51,7 +51,7 @@ if ($conn) {
             <div class="row bg-light">
 
                 <div class="col-sm">
-                    <a href="/library/details.php?id=<?php echo htmlspecialchars($book['id']) ?>"><h6><?php echo  $book['name'] ?></h6></a>
+                    <a href="/library/details.php?id=<?php echo htmlspecialchars($book['book_id']) ?>"><h6><?php echo  $book['title'] ?></h6></a>
                 </div>
                 <div class="col-sm">
                     <h6><?php echo  $book['author'] ?></h6>
@@ -63,10 +63,10 @@ if ($conn) {
                     <h6><?php echo  $book['library'] ?></h6>
                 </div>
                 <div class="col-sm">
-                    <?php if ($book['available'] === '1') { ?>
+                    <?php if ($book['availability'] === '1') { ?>
                         <h6><?php echo  'available' ?></h6>
                     <?php } ?>
-                    <?php if ($book['available'] === '0') { ?>
+                    <?php if ($book['availability'] === '0') { ?>
                         <h6><?php echo  'not available' ?></h6>
                     <?php } ?>
                 </div>

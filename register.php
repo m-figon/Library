@@ -67,7 +67,7 @@ if (isset($_GET['submit'])) {
         $correctData = false;
     }
     if ($correctData) {
-        $conn = mysqli_connect('localhost', 'admin', 'test1234', 'library');
+        $conn = mysqli_connect('localhost', 'admin', 'test1234', 'library-data');
         if ($conn) {
             $idVal='1';
             $nameVal = mysqli_real_escape_string($conn, $_GET['name']);
@@ -76,7 +76,7 @@ if (isset($_GET['submit'])) {
             $confirmPasswordVal = mysqli_real_escape_string($conn, $_GET['confirm-password']);
             $emailVal = mysqli_real_escape_string($conn, $_GET['email']);
             $phoneVal = mysqli_real_escape_string($conn, $_GET['phone']);
-            $sql = "INSERT INTO users(name,surname,password, confirm_password, email, phone) VALUES ('$nameVal','$surnameVal','$passwordVal','$confirmPasswordVal','$emailVal','$phoneVal')";
+            $sql = "INSERT INTO users(email,name,surname,password,phone) VALUES ('$emailVal','$nameVal','$surnameVal','$passwordVal','$phoneVal')";
 
             if (mysqli_query($conn, $sql)) {
                 header("Location: http://localhost/library/");

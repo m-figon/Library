@@ -4,8 +4,8 @@ $email = '';
 $password = '';
 
 
-$conn = mysqli_connect('localhost', 'admin', 'test1234', 'library');
-$sql = "SELECT * FROM users ORDER BY id";
+$conn = mysqli_connect('localhost', 'admin', 'test1234', 'library-data');
+$sql = "SELECT * FROM users ORDER BY user_id";
 $result = mysqli_query($conn, $sql);
 $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
@@ -14,15 +14,18 @@ mysqli_close($conn);
 
 if (isset($_GET['submit'])) {
     $correctData = false;
+    $tmpId;
     foreach($users as $user){
         if($user['email']===$_GET['email'] && $user['password']===$_GET['password']){
             $correctData=true;
+            $tmpId = $user['user_id'];
         }
     }
     if ($correctData) {
         $visible=false;
         session_start();
         $_SESSION['email']=$user['email'];
+        $_SESSION['user_id']=$tmpId;
         header("Location: http://localhost/library/");
     }else{
         $visible=true;
